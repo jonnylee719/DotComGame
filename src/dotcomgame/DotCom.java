@@ -50,15 +50,6 @@ public class DotCom {
     }
     
     public String checkGuess(String in){
-        int guess = Integer.parseInt(in);
-        
-        while (guess < 0){
-            System.out.println("Please give guess within range. \nGuess again:");
-            Scanner scan = new Scanner (System.in);
-            in = scan.next();
-            guess = Integer.parseInt(in);
-        }
-        
         String result = "miss";
         int index = locationCells.indexOf(in);
         if (index == -1)
