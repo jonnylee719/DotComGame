@@ -37,33 +37,22 @@ public class DotCom {
         return locationCells.isEmpty();
     }
     public void setLocation(ArrayList<String> loc){
-        /*int startCell = (int)(Math.random()*7);
-        int [] randomNum = new int [3];
-        String [] ran = new String [3];
-        locationCells = new ArrayList <String>();
-        for(int i = 0; i<3; i++){
-            randomNum[i]=startCell+i;
-            ran [i] = String.valueOf(randomNum[i]);
-            locationCells.add(ran[i]);
-        }*/
-        locationCells = loc;
+       locationCells = loc;
     }
     
     public String checkGuess(String in){
-        String result = "miss";
-        int index = locationCells.indexOf(in);
-        if (index == -1)
-            return result;
-        else {
-            locationCells.remove(index);
-        }
-        if (locationCells.isEmpty()){
-            result = "kill";
-        }
-        else 
-            result = "hit";
-        return result;
-        
+         String result = "miss";
+         int index = locationCells.indexOf(in);
+         if (index>=0){
+             locationCells.remove (index);
+             
+             if (locationCells.isEmpty()){
+                 result = "kill";
+                 System.out.println("You have sunk "+ DotComName);
+             }
+             else result = "hit";
+         }
+         return result;
     }
     
 }

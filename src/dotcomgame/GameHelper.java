@@ -16,16 +16,16 @@ public class GameHelper {
     private int gridLength = 7;
     private int gridSize = 49;
     private int [] grid = new int [gridSize];
-    private ArrayList <String> alphaCells = new ArrayList <String>();
-    private int comSize =0;
+    private int comCount = 0;
     
     public String getUserInput(String prompt){
         Scanner scan = new Scanner(System.in);
-        System.out.println("prompt" + scan);
+        System.out.print(prompt);
         String userInput = scan.next();
         return userInput;
     }
     public ArrayList <String> placeDotCom(int comSize){
+        ArrayList<String> alphaCells = new ArrayList<String>();
         boolean success = false;
         int loca;
         int attempt = 0;
@@ -33,20 +33,23 @@ public class GameHelper {
         int [] coord = new int [comSize];
         String alphabet = "ABCDEFG";
         
-        comSize++;
-        if (comSize % 2 == 1){
-            incr = 7;
+        comCount++;
+        if (comCount % 2 == 1){
+            incr = gridLength;
         }
         else incr = 1;
         
-        while (success != true & attempt++ < 200){
-            loca = (int)(Math.random()*gridSize);
+        while (!success & attempt++ < 200){
+            loca = (int)(Math.random() *gridSize);
             int x = 0;
-            while (success & x<comSize){
+            success = true;
+            while (success && x < comSize){
                 if (grid[loca] == 0){
-                    coord [x++] = loca;
+                   coord [x++] = loca;
+                    
+                    
                     loca = loca + incr;
-                    if (loca > gridSize)
+                    if (loca >= gridSize)
                         success = false;
                     if (x> 0 && loca%gridLength == 0)
                         success = false;
@@ -54,11 +57,10 @@ public class GameHelper {
                 else success = false;
             }
         }
-        
         // convert coord to String
         int x = 0;
         
-        while ( x< comSize){
+        while ( x < comSize){
             grid [coord[x]] = 1;
             int row = coord[x]/7;
             int column = coord[x]%7;
@@ -66,6 +68,7 @@ public class GameHelper {
             alphaCells.add (temp.concat(Integer.toString(row)));
             x++;
         }
+        
         return alphaCells;
     }
 }

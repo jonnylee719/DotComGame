@@ -17,6 +17,8 @@ public class DotComGame {
     private int numOfGuesses ;
     private ArrayList <DotCom> dotComsList = new ArrayList <DotCom>();
     private GameHelper helper = new GameHelper();
+    
+    
     public void setUpGame(){
         DotCom one = new DotCom();
         one.setName("Weiner.com");
@@ -25,19 +27,42 @@ public class DotComGame {
         DotCom three = new DotCom();
         three.setName("Feet.com");
         
-        dotComsList.add(0, one);
-        dotComsList.add(1, two);
-        dotComsList.add(2, three);
+        dotComsList.add(one);
+        dotComsList.add(two);
+        dotComsList.add(three);
+        
         
         // place dotComs
         for (DotCom dotComToSet: dotComsList){
+            
             ArrayList <String> newLocations = helper.placeDotCom(3);
             dotComToSet.setLocation(newLocations);
         }
+        
     }
     
     public void startPlaying(){
-        
+        while(dotComsList.isEmpty()!=true){
+            String guess = helper.getUserInput("Please enter your guess: ");
+            checkUserGuess(guess);
+        }
+        endGame();
+    }
+    
+    public void checkUserGuess (String userGuess){
+        numOfGuesses++;
+        String result = "miss";
+        for (DotCom dotComToCheck: dotComsList){
+            result = dotComToCheck.checkGuess(userGuess);
+            if (result.equals("hit")){
+                break;
+            }
+            if (result.equals("kill")){
+                dotComsList.remove(dotComToCheck);
+                break;
+            }
+        }
+        System.out.println(result);
     }
     
     public void endGame(){
