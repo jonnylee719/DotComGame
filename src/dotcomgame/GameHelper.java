@@ -20,8 +20,11 @@ public class GameHelper {
     
     public String getUserInput(String prompt){
         Scanner scan = new Scanner(System.in);
+       
         System.out.print(prompt);
         String userInput = scan.next();
+        if(userInput == " end")
+            System.out.println("Y");
         return userInput;
     }
     public ArrayList <String> placeDotCom(int comSize){

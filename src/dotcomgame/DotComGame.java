@@ -18,7 +18,6 @@ public class DotComGame {
     private ArrayList <DotCom> dotComsList = new ArrayList <DotCom>();
     private GameHelper helper = new GameHelper();
     
-    
     public void setUpGame(){
         DotCom one = new DotCom();
         one.setName("Weiner.com");
@@ -44,6 +43,8 @@ public class DotComGame {
     public void startPlaying(){
         while(dotComsList.isEmpty()!=true){
             String guess = helper.getUserInput("Please enter your guess: ");
+            if(guess.equals("end"))
+                return;
             checkUserGuess(guess);
         }
         endGame();
@@ -51,7 +52,9 @@ public class DotComGame {
     
     public void checkUserGuess (String userGuess){
         numOfGuesses++;
-        String result = "miss";
+        String result = null;
+        
+        result = "miss";
         for (DotCom dotComToCheck: dotComsList){
             result = dotComToCheck.checkGuess(userGuess);
             if (result.equals("hit")){
@@ -63,6 +66,10 @@ public class DotComGame {
             }
         }
         System.out.println(result);
+    }
+    
+    public void quickEndGame(){
+            endGame();
     }
     
     public void endGame(){
